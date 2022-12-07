@@ -19,10 +19,16 @@ public class Model1 {
     public void solve(Data data) {
         // 1. Create a Model
         Model model = new Model("my first problem");
+        int warehouseNumber = data.getWarehouseNumber();
+        int storeNumber = data.getStoreNumber()
+        int constructionCost = data.getConstructionCost();
 
-        IntVar magasins = model.intVar("magasins", 1,data.getWarehouseNumber());
-        IntVar entrepots = model.intVar("magasins", 1,data.getWarehouseNumber());
+        IntVar magasins = model.intVar("magasins", 1,warehouseNumber, true);
+        IntVar entrepots = model.intVar("magasins", 1,warehouseNumber, true);
 
+        IntVar[] coutFixe = model.intVarArray("coutFixe", warehouseNumber, 0, constructionCost, true);
+        IntVar[][] assign = model.intVarMatrix("assign", storeNumber, warehouseNumber, 0, 1);
+        IntVar[][] coutMaintenance = model.intVarMatrix("coutMaintenance", storeNumber, warehouseNumber, 0, data.MaxTotalCost(), true);
 
         /*
         // 2. Create variables
