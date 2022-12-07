@@ -11,9 +11,9 @@ import org.chocosolver.solver.variables.IntVar;
  * @author Charles Prud'homme, Jean-Guillaume Fages
  * @since 9/02/2016
  */
-public class Overview {
+public class Model1 {
 
-    public static void main(String[] args) {
+    public void solve() {
         // 1. Create a Model
         Model model = new Model("my first problem");
         // 2. Create variables
