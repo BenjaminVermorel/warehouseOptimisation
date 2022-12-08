@@ -3,25 +3,17 @@ package models;
 import data.Data;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
+import org.chocosolver.solver.variables.SetVar;
 
-/**
- * Trivial example showing how to use Choco Solver
- * to solve the equation system
- * x + y < 5
- * x * y = 4
- * with x in [0,5] and y in {2, 3, 8}
- *
- * @author Charles Prud'homme, Jean-Guillaume Fages
- * @since 9/02/2016
- */
 public class Model1 {
 
     public void solve(Data data) {
         // 1. Create a Model
         Model model = new Model("my first problem");
         int warehouseNumber = data.getWarehouseNumber();
-        int storeNumber = data.getStoreNumber()
+        int storeNumber = data.getStoreNumber();
         int constructionCost = data.getConstructionCost();
+        int[][] supplyCost= data.getSupplyCost();
 
         IntVar magasins = model.intVar("magasins", 1,warehouseNumber, true);
         IntVar entrepots = model.intVar("magasins", 1,warehouseNumber, true);
@@ -30,6 +22,18 @@ public class Model1 {
         IntVar[][] assign = model.intVarMatrix("assign", storeNumber, warehouseNumber, 0, 1);
         IntVar[][] coutMaintenance = model.intVarMatrix("coutMaintenance", storeNumber, warehouseNumber, 0, data.MaxTotalCost(), true);
 
+        for(int x = 0; x < storeNumber; x++) {
+            //One store can only get supplied by one warehouse
+            model.sum(assign[x], "=", 1);
+            //Calculation of the final supply cost
+            for(int y = 0;y < warehouseNumber; y++) {
+                model.times(assign[x][y], supplyCost[x][y], coutMaintenance[x][y]);
+            }
+        }
+
+        for(int y = 0; y < warehouseNumber; y++) {
+            model.sum(assign[x], "<=", 1);
+        }
         /*
         // 2. Create variables
         IntVar x = model.intVar("X", 0, 5);                 // x in [0,5]
