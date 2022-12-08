@@ -2,15 +2,13 @@ import data.Data;
 import data.TrivialData;
 import models.Model1;
 
+import org.chocosolver.parser.flatzinc.ChocoFZN;
+
 public class main {
 
-    public static void main(String[] args) {
-        Model1 model = new Model1();
+    public static void main(String[] args) throws Exception {
 
-        //Answer should always be 383
-        Data data = new TrivialData();
-        model.solve(data);
-
-
+        ChocoFZN chocoFZN = new ChocoFZN();
+        chocoFZN.main(args);
     }
 }

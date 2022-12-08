@@ -10,4 +10,12 @@
   </properties>
   <name>Archetype - warehouse</name>
   <url>http://maven.apache.org</url>
+  <packaging>jar</packaging>
+  <dependencies>
+    <dependency>
+      <groupId>org.choco-solver</groupId>
+      <artifactId>choco-parsers</artifactId>
+      <version>4.10.10</version>
+    </dependency>
+  </dependencies>
 </project>

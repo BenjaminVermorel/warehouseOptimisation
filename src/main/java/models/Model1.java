@@ -1,6 +1,7 @@
 package models;
 
 import data.Data;
+import org.chocosolver.parser.flatzinc.Flatzinc4Parser;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
 import org.chocosolver.solver.variables.SetVar;
@@ -32,7 +33,7 @@ public class Model1 {
         }
 
         for(int y = 0; y < warehouseNumber; y++) {
-            model.sum(assign[x], "<=", 1);
+            model.sum(assign[y], "<=", 1);
         }
         /*
         // 2. Create variables
@@ -47,6 +48,5 @@ public class Model1 {
         System.out.println(x); // Prints X = 2
         System.out.println(y); // Prints Y = 2
         */
-         */
     }
 }
