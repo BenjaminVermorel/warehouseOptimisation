@@ -12,5 +12,6 @@
         <module name="warehouse" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="19" />
   </component>
 </project>
