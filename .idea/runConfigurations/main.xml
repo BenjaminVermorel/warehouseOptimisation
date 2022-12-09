@@ -3,7 +3,7 @@
     <option name="ALTERNATIVE_JRE_PATH" value="C:\Program Files\Java\jdk-15.0.2" />
     <option name="MAIN_CLASS_NAME" value="main" />
     <module name="warehouse" />
-    <option name="PROGRAM_PARAMETERS" value="C:\Users\benjamin\Desktop\model1Bench1.fzn -lvl INFO" />
+    <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$\src\main\java\FlatZinc\model1Bench1.fzn -lvl INFO" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

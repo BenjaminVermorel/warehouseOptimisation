@@ -8,7 +8,7 @@ public class main {
 
     public static void main(String[] args) throws Exception {
         System.out.println("rien a faire ici ");
-        ChocoFZN chocoFZN = new ChocoFZN();
-        chocoFZN.main(args);
+        ChocoFZN2 chocoFZN2 = new ChocoFZN2();
+        chocoFZN2.main(args);
     }
 }
