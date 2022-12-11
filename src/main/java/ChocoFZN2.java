@@ -14,6 +14,5 @@ public class ChocoFZN2 {
             fzn.configureSearch();
             fzn.solve();
         }
-
     }
 }

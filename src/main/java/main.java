@@ -1,6 +1,3 @@
-import data.Data;
-import data.TrivialData;
-import models.Model1;
 
 import org.chocosolver.parser.flatzinc.ChocoFZN;
 
