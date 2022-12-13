@@ -82,6 +82,6 @@ public class Model4 {
         st.append("\nsupplyCost: ").append(supplyCost.getValue());
         st.append("\nTotal: ").append(coutTotal.getValue());
         st.append("\n");
-        System.out.println(st.toString());
+        System.out.println(st);
     }
 }
