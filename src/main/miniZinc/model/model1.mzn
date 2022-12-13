@@ -13,7 +13,7 @@ set of int: entrepots  = 1..n_entrepot;
 array[1..n_entrepot] of var 0..cout_construction: coutFixe;
 array[1..n_magasin,1..n_entrepot] of var 0..1: assign;
 array[1..n_magasin,1..n_entrepot] of var 0..coutMax: cout_maintenance;
-var 1..MaxTotal: total;
+var 0..MaxTotal: total;
 
 
 
@@ -31,12 +31,10 @@ constraint forall(j in entrepots)(
            );
            
 constraint forall(j in entrepots where sum(i in magasins)(assign[i,j] == 1) > 0)(
-              %Un entrepot ne peut pas fournir plus de magasin qu'il a de capacite
               coutFixe[j] =  cout_construction
            );
 
 constraint forall(j in entrepots where sum(i in magasins)(assign[i,j] == 1) == 0)(
-              %Un entrepot ne peut pas fournir plus de magasin qu'il a de capacite
               coutFixe[j] =  0
            );
 

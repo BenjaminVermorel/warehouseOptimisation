@@ -13,7 +13,7 @@ int: MaxTotal =   (n_entrepot * cout_construction)
  
 array[1..n_magasin] of var 1..n_entrepot: supplier;
 array[1..n_entrepot] of var bool: open;
-array[1..n_magasin] of var 1..MaxCost: cost;
+array[1..n_magasin] of var 0..MaxCost: cost;
 var 1..MaxTotal: tot;
  
 constraint
@@ -49,6 +49,10 @@ solve
  
 output
   [ "warehouses:" ]
+  ++
+  ["cout fixe" ++ show(sum (i in 1..n_entrepot) (cout_construction * bool2int(open[i])))]
+  ++
+  ["cout supply" ++ show(sum (i in 1..n_magasin) (cost[i]))]
   ++
   [ "\ntot = ", show(tot) ]
   ++
