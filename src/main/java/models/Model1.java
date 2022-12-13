@@ -3,9 +3,10 @@ package models;
 import data.Data;
 import org.chocosolver.parser.flatzinc.Flatzinc4Parser;
 import org.chocosolver.solver.Model;
+import org.chocosolver.solver.variables.IVariableFactory;
 import org.chocosolver.solver.variables.IntVar;
 import org.chocosolver.solver.variables.SetVar;
-
+import org.chocosolver.solver.variables.VariableFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,25 +28,29 @@ public class Model1 {
         IntVar[][] assign = model.intVarMatrix("assign", storeNumber, warehouseNumber, 0, 1);
         IntVar[][] coutMaintenance = model.intVarMatrix("coutMaintenance", storeNumber, warehouseNumber, 0, data.MaxTotalCost(), true);
 
+        IntVar ONE = model.intVar(1,1);
         for(int x = 0; x < storeNumber; x++) {
             //One store can only get supplied by one warehouse
-            model.sum(assign[x], "=", 1);
+            model.count(1, assign[x], ONE).post();
             //Calculation of the final supply cost
             for(int y = 0;y < warehouseNumber; y++) {
-                model.times(assign[x][y], supplyCost[x][y], coutMaintenance[x][y]);
+                model.times(assign[x][y], supplyCost[x][y], coutMaintenance[x][y]).post();
             }
         }
 
-        IntVar[] test = model.intVarArr
+        IntVar[] column = new IntVar[warehouseNumber];
         List<IntVar> list = new ArrayList<>();
         for(int x = 0; x < storeNumber; x++)
         {
             for (int y = 0; y < warehouseNumber; y++) {
                 list.add(assign[x][y]);
-
             }
-            model.sum(list, "<=", warehouseCapacity[x]);
+            model.sum(column, "<=", warehouseCapacity[x]).post();
         }
+
+        model.
+
+
 
         /*
         // 2. Create variables
