@@ -2,13 +2,13 @@
 import data.Data;
 import data.TrivialData;
 import models.Model1;
-import org.chocosolver.parser.flatzinc.ChocoFZN;
+import models.Model4;
 
 public class main {
 
     public static void main(String[] args) throws Exception {
         Data data = new TrivialData();
-        Model1 model = new Model1();
+        Model4 model = new Model4();
         model.solve(data);
 
         /*
