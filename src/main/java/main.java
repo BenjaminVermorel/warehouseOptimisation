@@ -1,13 +1,12 @@
 
+import data.Bench1;
 import data.Data;
-import data.TrivialData;
-import models.Model1;
 import models.Model4;
 
 public class main {
 
     public static void main(String[] args) throws Exception {
-        Data data = new TrivialData();
+        Data data = new Bench1();
         Model4 model = new Model4();
         model.solve(data);
 
