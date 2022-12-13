@@ -6,6 +6,9 @@ import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
 import org.chocosolver.solver.variables.SetVar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Model1 {
 
     public void solve(Data data) {
@@ -14,7 +17,8 @@ public class Model1 {
         int warehouseNumber = data.getWarehouseNumber();
         int storeNumber = data.getStoreNumber();
         int constructionCost = data.getConstructionCost();
-        int[][] supplyCost= data.getSupplyCost();
+        int[][] supplyCost = data.getSupplyCost();
+        int[] warehouseCapacity = data.getWarehouseCapacity();
 
         IntVar magasins = model.intVar("magasins", 1,warehouseNumber, true);
         IntVar entrepots = model.intVar("magasins", 1,warehouseNumber, true);
@@ -32,9 +36,17 @@ public class Model1 {
             }
         }
 
-        for(int y = 0; y < warehouseNumber; y++) {
-            model.sum(assign[y], "<=", 1);
+        IntVar[] test = model.intVarArr
+        List<IntVar> list = new ArrayList<>();
+        for(int x = 0; x < storeNumber; x++)
+        {
+            for (int y = 0; y < warehouseNumber; y++) {
+                list.add(assign[x][y]);
+
+            }
+            model.sum(list, "<=", warehouseCapacity[x]);
         }
+
         /*
         // 2. Create variables
         IntVar x = model.intVar("X", 0, 5);                 // x in [0,5]
