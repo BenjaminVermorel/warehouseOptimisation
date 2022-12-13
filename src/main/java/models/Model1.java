@@ -1,11 +1,8 @@
 package models;
 
 import data.Data;
-import org.chocosolver.parser.flatzinc.Flatzinc4Parser;
 import org.chocosolver.solver.Model;
-import org.chocosolver.solver.variables.IVariableFactory;
 import org.chocosolver.solver.variables.IntVar;
-import org.chocosolver.solver.variables.SetVar;
 import org.chocosolver.solver.variables.VariableFactory;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,7 @@ public class Model1 {
 
         IntVar[] coutFixe = model.intVarArray("coutFixe", warehouseNumber, 0, constructionCost, true);
         IntVar[][] assign = model.intVarMatrix("assign", storeNumber, warehouseNumber, 0, 1);
-        IntVar[][] coutMaintenance = model.intVarMatrix("coutMaintenance", storeNumber, warehouseNumber, 0, data.MaxTotalCost(), true);
+        IntVar[][] coutMaintenance = model.intVarMatrix("coutMaintenance", storeNumber, warehouseNumber, 0, data.getMaxTotalCost(), true);
 
         IntVar ONE = model.intVar(1,1);
         for(int x = 0; x < storeNumber; x++) {
@@ -48,6 +45,7 @@ public class Model1 {
             model.sum(column, "<=", warehouseCapacity[x]).post();
         }
 
+        IntVar var =
         model.
 
 

@@ -59,7 +59,16 @@ public abstract class Data {
         return max;
     }
 
-    public int MaxTotalCost() {
+    public int getMaxCapacity() {
+        int max = 0;
+        for(int x = 0; x<warehouseCapacity.length; x++) {
+                if(warehouseCapacity[x] > max)
+                    max = warehouseCapacity[x];
+        }
+        return max;
+    }
+
+    public int getMaxTotalCost() {
         int totalCost = warehouseNumber * constructionCost;
         for(int x = 0; x<storeNumber; x++) {
             for(int y = 0; y<warehouseNumber; y++) {
