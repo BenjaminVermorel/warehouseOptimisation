@@ -4,15 +4,11 @@ import data.Data;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.variables.IntVar;
-import static java.util.Arrays.asList;
-import static org.chocosolver.solver.search.strategy.Search.*;
-import org.chocosolver.solver.search.strategy.Search;
-import org.chocosolver.solver.search.strategy.assignments.DecisionOperator;
-import org.chocosolver.solver.search.strategy.selectors.values.*;
-import org.chocosolver.solver.search.strategy.selectors.variables.*;
 import org.chocosolver.util.tools.ArrayUtils;
 
-public class Model4 {
+import static org.chocosolver.solver.search.strategy.Search.*;
+
+public class Model4TableauOnly {
 
     public void solve(Data data) {
         // 1. Create a Model
@@ -26,9 +22,9 @@ public class Model4 {
 
         IntVar[] usedCapacity = model.intVarArray("usedCapacity", warehouseNumber,  0, maxCapacity, true);
         IntVar[] fournisseur = model.intVarArray("fournisseur", storeNumber,  0, warehouseNumber - 1, true);
-        IntVar coutFixe = model.intVar("coutFixe",   0, constructionCost * warehouseNumber, true);
+        IntVar[] coutFixe = model.intVarArray("coutFixe", 1,   0, constructionCost * warehouseNumber, true);
         IntVar[] coutAppro = model.intVarArray("coutAppro", storeNumber,  0, data.getMaxTotalCost(), true);
-        IntVar coutTotal = model.intVar("coutTotal", 0, data.getMaxTotalCost(), true);
+        IntVar[] coutTotal = model.intVarArray("coutTotal", 1, 0, data.getMaxTotalCost(), true);
 
         for(int x = 0; x < warehouseNumber; x++) {
             //used capacity can't exceed warehouseCapacity
@@ -44,25 +40,25 @@ public class Model4 {
         }
 
         //used capacity is being determined by looking in fournisseur
-        IntVar closedWarehouseCount = model.intVar("openWarehouseCount", 0, warehouseNumber, true);
-        model.count(0, usedCapacity, closedWarehouseCount).post();
-        IntVar openWarehouseCount = model.intVar("openWarehouseCount", 0, warehouseNumber, true);
-        IntVar warehouseNumberVar = model.intVar("openWarehouseCount", warehouseNumber);
-        model.arithm(warehouseNumberVar, "-", closedWarehouseCount, "=", openWarehouseCount).post();
+        IntVar[] closedWarehouseCount = model.intVarArray("openWarehouseCount", 1, 0, warehouseNumber, true);
+        model.count(0, usedCapacity, closedWarehouseCount[0]).post();
+        IntVar[] openWarehouseCount = model.intVarArray("openWarehouseCount", 1, 0, warehouseNumber, true);
+        IntVar[] warehouseNumberVar = model.intVarArray("openWarehouseCount", 1, warehouseNumber,warehouseNumber);
+        model.arithm(warehouseNumberVar[0], "-", closedWarehouseCount[0], "=", openWarehouseCount[0]).post();
 
         //calculating
-        model.times(openWarehouseCount, constructionCost, coutFixe).post();
+        model.times(openWarehouseCount[0], constructionCost, coutFixe[0]).post();
 
         //Only one supplier per store
-        IntVar storeNumberVar = model.intVar("openWarehouseCount",storeNumber);
-        model.sum(usedCapacity, "=", storeNumberVar).post();
+        IntVar[] storeNumberVar = model.intVarArray("openWarehouseCount", 1,storeNumber, storeNumber);
+        model.sum(usedCapacity, "=", storeNumberVar[0]).post();
 
         //sum to get the total cost
-        IntVar finalSupplyCost = model.intVar("supplyCost", 0, data.getMaxTotalCost());
-        model.sum(coutAppro, "=", finalSupplyCost).post();
-        model.arithm(coutFixe, "+", finalSupplyCost, "=", coutTotal).post();
+        IntVar[] finalSupplyCost = model.intVarArray("supplyCost", 1, 0, data.getMaxTotalCost());
+        model.sum(coutAppro, "=", finalSupplyCost[0]).post();
+        model.arithm(coutFixe[0], "+", finalSupplyCost[0], "=", coutTotal[0]).post();
 
-        model.setObjective(false, coutTotal);
+        model.setObjective(false, coutTotal[0]);
 
         Solver solver = model.getSolver();
 
@@ -72,11 +68,12 @@ public class Model4 {
 
         //solver.setSearch(minDomLBSearch(fournisseur));    ok 5783 solution 880842 au bout de 300s
 
-        solver.setSearch(minDomLBSearch(coutTotal));        //ok 1 solution optimal en 10s 856165
+        //solver.setSearch(minDomLBSearch(coutTotal));        //ok 1 solution optimal en 10s 856165
 
         //solver.setSearch(minDomLBSearch(coutFixe,warehouseNumberVar,coutTotal,closedWarehouseCount,openWarehouseCount,warehouseNumberVar,storeNumberVar,finalSupplyCost));
 
         //solver.setSearch(minDomLBSearch(ArrayUtils.append(usedCapacity, fournisseur, coutAppro))); // 1 269 512
+
 
 
         /*solver.setSearch(Search.intVarSearch(
@@ -93,6 +90,17 @@ public class Model4 {
                         new IntDomainMin(),
                         coutAppro)
         );*/
+
+        solver.setSearch(minDomLBSearch(ArrayUtils.append(coutFixe,
+                                                            closedWarehouseCount,
+                                                            coutAppro,
+                                                            usedCapacity,
+                                                            fournisseur,
+                                                            openWarehouseCount,
+                                                            warehouseNumberVar,
+                                                            storeNumberVar,
+                                                            finalSupplyCost,
+                                                            coutTotal)));
 
         /* liste des variables du modele
         IntVar[] usedCapacity = model.intVarArray("usedCapacity", warehouseNumber,  0, maxCapacity, true);
@@ -113,7 +121,7 @@ public class Model4 {
         solver.showShortStatistics();
 
         while(solver.solve()){
-            prettyPrint(model, usedCapacity, warehouseNumber, fournisseur, storeNumber, coutFixe, finalSupplyCost, coutTotal);
+            prettyPrint(model, usedCapacity, warehouseNumber, fournisseur, storeNumber, coutFixe[0], finalSupplyCost[0], coutTotal[0]);
         }
 
     }

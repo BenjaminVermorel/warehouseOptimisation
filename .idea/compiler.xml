@@ -10,6 +10,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="warehouse" />
+        <module name="warehouseOptimisation" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="19" />
