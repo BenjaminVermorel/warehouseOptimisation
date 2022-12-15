@@ -1,5 +1,6 @@
 
 import data.Bench1;
+import data.Bench2;
 import data.Data;
 import models.Model4;
 import models.Model4TableauOnly;
@@ -7,8 +8,9 @@ import models.Model4TableauOnly;
 public class main {
 
     public static void main(String[] args) throws Exception {
-        Data data = new Bench1();
+        //Data data = new Bench1();
         //Model4 model = new Model4();
+        Data data = new Bench2();
         Model4TableauOnly model = new Model4TableauOnly();
         model.solve(data);
 
