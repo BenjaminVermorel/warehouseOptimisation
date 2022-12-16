@@ -3,6 +3,9 @@ package models;
 import data.Data;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
+import org.chocosolver.solver.search.strategy.selectors.values.IntDomainMax;
+import org.chocosolver.solver.search.strategy.selectors.values.IntDomainMin;
+import org.chocosolver.solver.search.strategy.selectors.variables.*;
 import org.chocosolver.solver.variables.IntVar;
 import org.chocosolver.util.tools.ArrayUtils;
 
@@ -101,6 +104,124 @@ public class Model4TableauOnly {
                                                             storeNumberVar,
                                                             finalSupplyCost,
                                                             coutTotal)));
+        /*solver.setSearch(activityBasedSearch(ArrayUtils.append(coutFixe,
+                closedWarehouseCount,
+                coutAppro,
+                usedCapacity,
+                fournisseur,
+                openWarehouseCount,
+                warehouseNumberVar,
+                storeNumberVar,
+                finalSupplyCost,
+                coutTotal)));*/
+
+
+        // comme minDomLBSearch mais en plus développé
+        /*solver.setSearch(intVarSearch(
+                // selects the variable of smallest domain size
+                new FirstFail(model),
+                // selects the smallest domain value (lower bound)
+                new IntDomainMin(),
+                // variables to branch on
+                ArrayUtils.append(coutTotal,
+                        coutFixe,
+                        coutAppro,
+                        closedWarehouseCount,
+                        openWarehouseCount,
+                        finalSupplyCost,
+                        warehouseNumberVar,
+                        storeNumberVar,
+                        usedCapacity,
+                        fournisseur
+                        )
+        ));*/    // ca a l'air de fonctionner'
+
+        //sélection aléatoire des variables
+        /*solver.setSearch(intVarSearch(
+                // selects the variable of smallest domain size
+                new Random(System.currentTimeMillis()),
+                // selects the smallest domain value (lower bound)
+                new IntDomainMin(),
+                // variables to branch on
+                ArrayUtils.append(coutTotal,
+                        coutFixe,
+                        coutAppro,
+                        closedWarehouseCount,
+                        openWarehouseCount,
+                        finalSupplyCost,
+                        warehouseNumberVar,
+                        storeNumberVar,
+                        usedCapacity,
+                        fournisseur
+                )
+        ));*/
+
+        /*solver.setSearch(intVarSearch(
+                // selects the variable of smallest domain size
+                new Cyclic<>(),
+                // selects the smallest domain value (lower bound)
+                new IntDomainMin(),
+                // variables to branch on
+                ArrayUtils.append(coutTotal,
+                        coutFixe,
+                        coutAppro,
+                        closedWarehouseCount,
+                        openWarehouseCount,
+                        finalSupplyCost,
+                        warehouseNumberVar,
+                        storeNumberVar,
+                        usedCapacity,
+                        fournisseur
+                )
+        ));*/
+
+        /*solver.setSearch(intVarSearch(
+                // selects the variable of smallest domain size
+                new Smallest(),
+                // selects the smallest domain value (lower bound)
+                new IntDomainMin(),
+                // variables to branch on
+                ArrayUtils.append(coutTotal,
+                        coutFixe,
+                        coutAppro,
+                        closedWarehouseCount,
+                        openWarehouseCount,
+                        finalSupplyCost,
+                        warehouseNumberVar,
+                        storeNumberVar,
+                        usedCapacity,
+                        fournisseur
+                )
+        ));*/
+
+        /*solver.setSearch(intVarSearch(
+                // selects the variable of smallest domain size
+                new FirstFail(model),
+                // selects the smallest domain value (lower bound)
+                new IntDomainMax(),
+                // variables to branch on
+                ArrayUtils.append(coutTotal,
+                        coutFixe,
+                        coutAppro,
+                        closedWarehouseCount,
+                        openWarehouseCount,
+                        finalSupplyCost,
+                        warehouseNumberVar,
+                        storeNumberVar,
+                        usedCapacity,
+                        fournisseur
+                )
+        ));*/
+        /*solver.setSearch(minDomLBSearch(ArrayUtils.append(coutFixe,
+                                                            closedWarehouseCount,
+                                                            coutAppro,
+                                                            usedCapacity,
+                                                            fournisseur,
+                                                            openWarehouseCount,
+                                                            warehouseNumberVar,
+                                                            storeNumberVar,
+                                                            finalSupplyCost,
+                                                            coutTotal)));*/
 
         /* liste des variables du modele
         IntVar[] usedCapacity = model.intVarArray("usedCapacity", warehouseNumber,  0, maxCapacity, true);

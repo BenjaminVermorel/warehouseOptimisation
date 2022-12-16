@@ -14,7 +14,7 @@ public class main {
     public static void main(String[] args) throws Exception {
         //Data data = new Bench1();
         //Model4 model = new Model4();
-        Data data = new Bench6();
+        Data data = new Bench1();
         Model4TableauOnly model = new Model4TableauOnly();
         model.solve(data);
 
