@@ -5,7 +5,7 @@ public class Bench4 extends Data {
     public Bench4() {
         this.setWarehouseNumber(25);
         this.setStoreNumber(50);
-        this.setConstructionCost(7500);
+        this.setConstructionCost(17500);
         this.setWarehouseCapacity(warehouseCapacity());
         this.setSupplyCost(supplyCost());
     }
