@@ -1,8 +1,8 @@
 package data;
 
-public class TrivialData extends Data {
+public class bench0 extends Data {
 
-    public TrivialData() {
+    public bench0() {
         this.setWarehouseNumber(5);
         this.setStoreNumber(10);
         this.setConstructionCost(30);
