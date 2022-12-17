@@ -1,25 +1,23 @@
 
 import data.Bench1;
-import data.Bench2;
-import data.Bench3;
-import data.Bench4;
-import data.Bench5;
-import data.Bench6;
 import data.Data;
-import models.Model4;
-import models.Model4TableauOnly;
+import models.Model2TableauOnly;
 
 public class main {
 
     public static void main(String[] args) throws Exception {
-        //Data data = new Bench1();
-        //Model4 model = new Model4();
+
+        //Instantiation des données d'entrées(bench)
+        //Va de bench0 à bench 6
         Data data = new Bench1();
-        Model4TableauOnly model = new Model4TableauOnly();
+        //Instantiation du model
+        Model2TableauOnly model = new Model2TableauOnly();
+        //instruction de resoudre le model
         model.solve(data);
 
+        //Code permettant d'utiliser Choco-parser.
+        //Paramètres d'entrée: $PROJECT_DIR$/warehouseOptimisation\src\main\java\FlatZinc\model1Bench1.fzn -lvl INFO
         /*
-        //System.out.println("rien a faire ici ");
         ChocoFZN2 chocoFZN2 = new ChocoFZN2();
         chocoFZN2.main(args);
         */

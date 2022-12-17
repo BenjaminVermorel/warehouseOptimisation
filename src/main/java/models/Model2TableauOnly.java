@@ -3,15 +3,12 @@ package models;
 import data.Data;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
-import org.chocosolver.solver.search.strategy.selectors.values.IntDomainMax;
-import org.chocosolver.solver.search.strategy.selectors.values.IntDomainMin;
-import org.chocosolver.solver.search.strategy.selectors.variables.*;
 import org.chocosolver.solver.variables.IntVar;
 import org.chocosolver.util.tools.ArrayUtils;
 
 import static org.chocosolver.solver.search.strategy.Search.*;
 
-public class Model4TableauOnly {
+public class Model2TableauOnly {
 
     public void solve(Data data) {
         // 1. Create a Model

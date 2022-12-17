@@ -4,15 +4,10 @@ import data.Data;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.variables.IntVar;
-import static java.util.Arrays.asList;
-import static org.chocosolver.solver.search.strategy.Search.*;
-import org.chocosolver.solver.search.strategy.Search;
-import org.chocosolver.solver.search.strategy.assignments.DecisionOperator;
-import org.chocosolver.solver.search.strategy.selectors.values.*;
-import org.chocosolver.solver.search.strategy.selectors.variables.*;
-import org.chocosolver.util.tools.ArrayUtils;
 
-public class Model4 {
+import static org.chocosolver.solver.search.strategy.Search.*;
+
+public class Model2 {
 
     public void solve(Data data) {
         // 1. Create a Model
